@@ -1,0 +1,6 @@
+back-end:
+  create and test CRUD API routes for word collections.
+  remove all Book api routes/references.
+
+front-end:
+  copy/update book form for creating word collections.

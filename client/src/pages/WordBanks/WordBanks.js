@@ -17,10 +17,10 @@ class WordBanks extends Component {
   };
 
   componentDidMount() {
-    this.loadBanks();
+    this.loadWordBanks();
   }
 
-  loadBanks = () => {
+  loadWordBanks = () => {
     API.getWordBanks()
       .then(res =>
         this.setState({ banks: res.data, title: "", tags: ""})
@@ -29,8 +29,8 @@ class WordBanks extends Component {
   };
 
   deleteBank = id => {
-    API.deleteBank(id)
-      .then(res => this.loadBanks())
+    API.deleteWordBank(id)
+      .then(res => this.loadWordBanks())
       .catch(err => console.log(err));
   };
 
@@ -49,7 +49,7 @@ class WordBanks extends Component {
         tags: this.state.tags,
         description: this.state.description
       })
-      .then(res => this.loadBanks())
+      .then(res => this.loadWordBanks())
       .catch(err => console.log(err));
     }
   };
@@ -67,7 +67,7 @@ class WordBanks extends Component {
                 value={this.state.title}
                 onChange={this.handleInputChange}
                 name="title"
-                placeholder="Title (required)"
+                placeholder="Word (required)"
               />
               <Input
                 value={this.state.tags}

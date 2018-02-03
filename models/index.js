@@ -1,4 +1,5 @@
 module.exports = {
   Book: require("./book"),
-  Words: require("./wordCollection")
+  Words: require("./wordCollection"),
+  Word: require("./word")
 };

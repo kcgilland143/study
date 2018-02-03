@@ -10,7 +10,7 @@ const wordsSchema = new Schema({
   title: { type: String, required: true },
   tags: { type: Array },
   description: String,
-  words: [{ type: wordSchema }],
+  words: [{ type: String }],
   date: { type: Date, default: Date.now }
 });
 

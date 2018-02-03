@@ -2,19 +2,35 @@ import axios from "axios";
 
 export default {
   // Gets all books
-  getBooks: function() {
-    return axios.get("/api/books");
+  getWords: function() {
+    return axios.get("/api/words");
   },
   // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
+  getWord: function(id) {
+    return axios.get("/api/words/" + id);
   },
   // Deletes the book with the given id
-  deleteBook: function(id) {
-    return axios.delete("/api/books/" + id);
+  deleteWord: function(id) {
+    return axios.delete("/api/words/" + id);
   },
   // Saves a book to the database
-  saveBook: function(bookData) {
-    return axios.post("/api/books", bookData);
+  saveWord: function(data) {
+    return axios.post("/api/words", data);
+  },
+
+  getWordBanks: function() {
+    return axios.get("/api/wordbanks");
+  },
+  // Gets the book with the given id
+  getWordBank: function(id) {
+    return axios.get("/api/wordbanks/" + id);
+  },
+  // Deletes the book with the given id
+  deleteWordBank: function(id) {
+    return axios.delete("/api/wordbanks/" + id);
+  },
+  // Saves a book to the database
+  saveWordBank: function(data) {
+    return axios.post("/api/wordbanks", data);
   }
 };

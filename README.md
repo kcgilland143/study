@@ -59,4 +59,6 @@ After confirming that you have an up to date git repository and a Heroku app cre
 yarn deploy
 ```
 
-If all previous steps were followed correctly, your application should be deployed to Heroku!
+If all previous steps were followed correctly, your application should be deployed to Heroku.
+
+use wordsAPI

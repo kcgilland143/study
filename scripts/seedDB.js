@@ -11,27 +11,32 @@ mongoose.connect(
   }
 );
 
+const wordsSeed = [
+  {
+    word: "test",
+    defintion: "something you do to make sure things work",
+  },
+  {
+    word: "rest",
+    defintion: "something you don't get enough of"
+  }
+]
+
+wordsSeed.map(word => {
+  word._id = mongoose.Types.ObjectId()
+  return word
+})
+
+const wordsRef = wordsSeed.map(word => {
+  return word._id
+})
+
 const wordSeed =
   {
     title: "Collection",
     tags: ["this", "is", "a", "test"],
     description: "Testing...",
-    words: [
-      {
-        word: "test",
-        definitions: [
-          "something you run",
-          "something that runs you"
-        ]
-      },
-      {
-        word: "rest",
-        definitions: [
-          "fancy term for API",
-          "something that eludes you"
-        ]
-      }
-    ]
+    words: wordsRef
   }
 
 db.Words

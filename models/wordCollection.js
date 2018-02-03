@@ -14,6 +14,6 @@ const wordsSchema = new Schema({
   date: { type: Date, default: Date.now }
 });
 
-const Words = mongoose.model("Words", wordsSchema);
+const WordBanks = mongoose.model("WordBank", wordsSchema);
 
-module.exports = Words;
+module.exports = WordBanks;

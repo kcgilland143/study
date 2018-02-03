@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const wordSchema = new Schema({
   word: {type: String, required: true},
-  definitions: {type: Array}
+  definition: {type: String, required: true}
 })
 
 const Word = mongoose.model("Word", wordSchema);

@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "Word-Collector",
   "version": "1.0.0",
-  "description": "",
+  "description": "Word bank collection to use for educational games",
   "main": "server.js",
   "scripts": {
     "server": "node server.js",

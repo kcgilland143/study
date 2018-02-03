@@ -22,7 +22,7 @@ const wordsSeed = [
   }
 ]
 
-wordsSeed.map(word => {
+wordsSeed = wordsSeed.map(word => {
   word._id = mongoose.Types.ObjectId()
   return word
 })
@@ -31,7 +31,7 @@ const wordsRef = wordsSeed.map(word => {
   return word._id
 })
 
-const wordSeed =
+const wordBankSeed =
   {
     title: "Collection",
     tags: ["this", "is", "a", "test"],
@@ -39,10 +39,13 @@ const wordSeed =
     words: wordsRef
   }
 
-db.Words
+db.Word
   .remove({})
+  .then(() => {
+    return db.Word.insertMany(wordsSeed)
+  })
   .then(() =>  {
-  db.Words.create(wordSeed)
+  db.WordBank.create(wordBankSeed)
     .then(data => {
       console.log(data, "records inserted!");
       process.exit(0);

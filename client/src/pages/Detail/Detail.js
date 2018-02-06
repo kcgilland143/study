@@ -13,8 +13,8 @@ class Detail extends Component {
   componentDidMount() {
     API.getWordBank(this.props.match.params.id)
       .then(res =>{
+       this.setState(res.data)
         console.log(res.data);
-       this.setState({ word: res.data })
      })
       .catch(err => console.log(err));
   }
@@ -26,7 +26,7 @@ class Detail extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>
-                {this.state.word.title} by {/*{this.state.tags}*/}
+                {this.state.title} by {this.state.tags}
               </h1>
             </Jumbotron>
           </Col>
@@ -36,7 +36,7 @@ class Detail extends Component {
             <article>
               <h1>Synopsis</h1>
               <p>
-                {/*{this.state.word.description}*/}
+                {this.state.description}
               </p>
             </article>
           </Col>

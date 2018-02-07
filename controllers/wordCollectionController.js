@@ -26,8 +26,7 @@ module.exports = {
           word: word.word,
           definition: word.definition
         }))
-        let result = words
-        wordBank['words'] = words
+        wordBank.words = words
         res.json(wordBank)
       })
       .catch(err => res.status(422).json(err));

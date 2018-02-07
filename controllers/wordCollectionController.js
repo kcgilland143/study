@@ -22,7 +22,7 @@ module.exports = {
       .then(bank => {
         var wordBank = Object.assign({}, bank.shift()._doc)
         let words = bank.map(word => ({
-          id: word._id,
+          _id: word._id,
           word: word.word,
           definition: word.definition
         }))
@@ -44,7 +44,7 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   remove: function(req, res) {
-    db.Words
+    db.WordBank
       .findById({ _id: req.params.id })
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))

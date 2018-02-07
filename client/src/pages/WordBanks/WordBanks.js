@@ -58,39 +58,7 @@ class WordBanks extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>What Banks would you like to play with?</h1>
-            </Jumbotron>
-            <form>
-              <Input
-                value={this.state.title}
-                onChange={this.handleInputChange}
-                name="title"
-                placeholder="collection title (required)"
-              />
-              <Input
-                value={this.state.tags}
-                onChange={this.handleInputChange}
-                split=" "
-                name="tags"
-                placeholder="Tags (required)"
-              />
-              <TextArea
-                value={this.state.description}
-                onChange={this.handleInputChange}
-                name="description"
-                placeholder="Description (Optional)"
-              />
-              <FormBtn
-                disabled={!(this.state.title && this.state.tags)}
-                onClick={this.handleFormSubmit}
-              >
-                Submit Bank
-              </FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
+          <Col size="md-12 sm-12">
             <Jumbotron>
               <h1>Available Banks</h1>
             </Jumbotron>
@@ -102,12 +70,26 @@ class WordBanks extends Component {
                       <strong>
                         {bank.title}
                       </strong>
-                      <br/>
-                      <small>
-                        {bank.tags}
-                      </small>
                     </Link>
-                    <DeleteBtn onClick={() => this.deleteBank(bank._id)} />
+                    <br/>
+                    <small>
+                      {bank.tags}
+                    </small>
+                    <div className="clearfix">
+                      <Link to={"/create/" + bank._id}>
+                        <button 
+                          className="btn btn-info pull-right" 
+                          style={{marginRight:1+'em'}}>
+                          <span className="glyphicon glyphicon-pencil" />
+                        </button>
+                      </Link>
+                      <button 
+                        className="btn btn-primary pull-right" 
+                        onClick={() => this.deleteBank(bank._id)}
+                        style={{marginRight:1+'em'}}>
+                          <span className="glyphicon glyphicon-trash" />
+                      </button>
+                    </div>
                   </ListItem>
                 ))}
               </List>

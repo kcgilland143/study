@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const wordSchema = new Schema({
-  word: {type: String, required: true},
-  definitions: {type: Array}
-})
-
 const wordsSchema = new Schema({
   title: { type: String, required: true },
   tags: { type: Array },
@@ -14,6 +9,6 @@ const wordsSchema = new Schema({
   date: { type: Date, default: Date.now }
 });
 
-const Words = mongoose.model("Words", wordsSchema);
+const WordBank = mongoose.model("WordBank", wordsSchema);
 
-module.exports = Words;
+module.exports = WordBank;

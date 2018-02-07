@@ -11,33 +11,41 @@ mongoose.connect(
   }
 );
 
-const wordSeed =
+let wordsSeed = [
+  {
+    word: "test",
+    definition: "something you do to make sure things work",
+  },
+  {
+    word: "rest",
+    definition: "something you don't get enough of"
+  }
+]
+
+wordsSeed = wordsSeed.map(word => {
+  word._id = mongoose.Types.ObjectId()
+  return word
+})
+
+const wordsRef = wordsSeed.map(word => {
+  return word._id
+})
+
+const wordBankSeed =
   {
     title: "Collection",
     tags: ["this", "is", "a", "test"],
     description: "Testing...",
-    words: [
-      {
-        word: "test",
-        definitions: [
-          "something you run",
-          "something that runs you"
-        ]
-      },
-      {
-        word: "rest",
-        definitions: [
-          "fancy term for API",
-          "something that eludes you"
-        ]
-      }
-    ]
+    words: wordsRef
   }
 
-db.Words
+db.Word
   .remove({})
+  .then(() => {
+    return db.Word.insertMany(wordsSeed)
+  })
   .then(() =>  {
-  db.Words.create(wordSeed)
+  db.WordBank.create(wordBankSeed)
     .then(data => {
       console.log(data, "records inserted!");
       process.exit(0);

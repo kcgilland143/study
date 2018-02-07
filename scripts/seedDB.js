@@ -11,14 +11,14 @@ mongoose.connect(
   }
 );
 
-const wordsSeed = [
+let wordsSeed = [
   {
     word: "test",
-    defintion: "something you do to make sure things work",
+    definition: "something you do to make sure things work",
   },
   {
     word: "rest",
-    defintion: "something you don't get enough of"
+    definition: "something you don't get enough of"
   }
 ]
 

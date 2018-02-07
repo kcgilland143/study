@@ -1,5 +1,5 @@
 module.exports = {
   Book: require("./book"),
-  Words: require("./wordCollection"),
+  WordBank: require("./wordCollection"),
   Word: require("./word")
 };

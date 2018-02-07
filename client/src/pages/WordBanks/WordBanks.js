@@ -67,11 +67,12 @@ class WordBanks extends Component {
                 value={this.state.title}
                 onChange={this.handleInputChange}
                 name="title"
-                placeholder="Word (required)"
+                placeholder="collection title (required)"
               />
               <Input
                 value={this.state.tags}
                 onChange={this.handleInputChange}
+                split=" "
                 name="tags"
                 placeholder="Tags (required)"
               />

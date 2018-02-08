@@ -6,7 +6,7 @@ import API from "../../utils/API";
 
 class Detail extends Component {
   state = {
-    book: {}
+    words:[]
   };
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
@@ -48,11 +48,15 @@ class Detail extends Component {
 
                   <div className="navigation">
                     <ul>
-                      {
-                        /*this.state.words.map((link) =>
-                          <li key={link.endpoint}>{link.endpoint}</li> 
-                        )*/
-                      }
+                      
+                        {this.state.words.map(word => {return (
+                          <li key={word._id}>
+                            {word.word} {word.definition}
+                          </li>
+                          )}
+                        )}
+   
+                      
                     </ul>
                   </div>
                 

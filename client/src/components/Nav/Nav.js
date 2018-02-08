@@ -1,6 +1,6 @@
 import React from "react";
 
-const Nav = () =>
+const Nav = (props) =>
   <nav className="navbar navbar-inverse navbar-top">
     <div className="container-fluid">
       <div className="navbar-header">
@@ -10,9 +10,12 @@ const Nav = () =>
           <span className="icon-bar" />
         </button>
         <a href="/" className="navbar-brand">
-          React Reading List
+          Study.io
         </a>
       </div>
+      <ul className="nav navbar-nav navbar-right">
+        {props.children}
+      </ul>
     </div>
   </nav>;
 

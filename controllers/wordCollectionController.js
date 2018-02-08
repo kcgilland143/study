@@ -21,13 +21,20 @@ module.exports = {
       })
       .then(bank => {
         var wordBank = Object.assign({}, bank.shift()._doc)
+        
+        // var wordBank = bank.shift()
+        
         let words = bank.map(word => ({
           _id: word._id,
           word: word.word,
           definition: word.definition
         }))
+        
         wordBank.words = words
+        
         res.json(wordBank)
+        
+        // res.json(bank)
       })
       .catch(err => res.status(422).json(err));
   },

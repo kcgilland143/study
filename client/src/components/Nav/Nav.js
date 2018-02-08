@@ -1,6 +1,6 @@
 import React from "react";
 
-const Nav = () =>
+const Nav = (props) =>
   <nav className="navbar navbar-inverse navbar-top">
     <div className="container-fluid">
       <div className="navbar-header">
@@ -13,6 +13,9 @@ const Nav = () =>
           Study.io
         </a>
       </div>
+      <ul className="nav navbar-nav navbar-right">
+        {props.children}
+      </ul>
     </div>
   </nav>;
 

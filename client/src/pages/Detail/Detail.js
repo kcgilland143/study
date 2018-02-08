@@ -20,24 +20,46 @@ class Detail extends Component {
   }
 
   render() {
+
     return (
       <Container fluid>
         <Row>
           <Col size="md-12">
             <Jumbotron>
               <h1>
-                {this.state.title} by {this.state.tags}
+                Word Bank: {this.state.title}
               </h1>
+              <h1>
+                Tag: {this.state.tags}
+              </h1>
+              <h2>Description: {this.state.description} </h2>
+              <h3>
+                Date created: {this.state.date}
+              </h3>              
+
             </Jumbotron>
           </Col>
         </Row>
         <Row>
           <Col size="md-10 md-offset-1">
             <article>
-              <h1>Synopsis</h1>
-              <p>
-                {this.state.description}
-              </p>
+              <h3>
+                Words in bank:
+
+                  <div className="navigation">
+                    <ul>
+                      {
+                        /*this.state.words.map((link) =>
+                          <li key={link.endpoint}>{link.endpoint}</li> 
+                        )*/
+                      }
+                    </ul>
+                  </div>
+                
+              </h3>
+
+
+
             </article>
           </Col>
         </Row>

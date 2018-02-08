@@ -66,7 +66,7 @@ class WordBanks extends Component {
               <List>
                 {this.state.banks.map(bank => (
                   <ListItem key={bank._id}>
-                    <Link to={"/books/" + bank._id}>
+                    <Link to={"/banks/" + bank._id}>
                       <strong>
                         {bank.title}
                       </strong>

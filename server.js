@@ -18,6 +18,7 @@ mongoose.Promise = global.Promise;
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist",
+//  process.env.MONGOLAB_URI || "mongodb://localhost/reactreadinglist",
   {
     useMongoClient: true
   }

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const wordController = require("../../controllers/wordController");
+const lookup = require("../../controllers/lookup")
 
 // Matches with "/api/books"
 router.route("/")
@@ -12,5 +13,9 @@ router
   .get(wordController.findById)
   .put(wordController.update)
   .delete(wordController.remove);
+
+router
+  .route("/search/:word")
+  .get(lookup)
 
 module.exports = router;

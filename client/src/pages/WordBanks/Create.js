@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
 import Jumbotron from "../../components/Jumbotron";
+import Spinner from "../../components/Spinner"
 import API from "../../utils/API";
 import { browserHistory } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
@@ -14,7 +15,8 @@ class WordBanks extends Component {
     description: "",
     word:"",
     definition:"",
-    words: []
+    words: [],
+    spinning: false
   };
 
 
@@ -41,10 +43,14 @@ class WordBanks extends Component {
   };
 
   lookUpWord = () => {
+    this.setState({spinning: true})
     API.dictionaryLookup(this.state.word)
       .then(res => {
         if (typeof res.data === 'string') {
-          this.setState({definition: res.data})
+          this.setState({
+            definition: res.data,
+            spinning: false
+          })
         }
       })
       .catch(err => console.log(err))
@@ -139,6 +145,7 @@ class WordBanks extends Component {
               )}
             </List>
             <br />
+            {this.state.spinning ? <Spinner/> : ""}
             <form>
               <div class="input-group" style={{marginBottom: 16}}>
                 <Input
@@ -151,7 +158,9 @@ class WordBanks extends Component {
                   <button 
                     class="btn btn-default" 
                     type="button"
-                    onClick={this.lookUpWord}>Search</button>
+                    onClick={this.lookUpWord}>
+                    Search
+                  </button>
                 </span>
               </div>
               <Input

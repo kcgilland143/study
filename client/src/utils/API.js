@@ -32,5 +32,8 @@ export default {
   // Saves a book to the database
   saveWordBank: function(data) {
     return axios.post("/api/wordbanks", data);
+  },
+  dictionaryLookup: function(word) {
+    return axios.get("/api/words/search/" + encodeURIComponent(word))
   }
 };

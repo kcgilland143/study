@@ -1,17 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import Jumbotron from "../../components/Jumbotron";
+import PageHeader from "../../components/PageHeader";
+import {ListItem, List} from "../../components/List"
 import API from "../../utils/API";
 
 class Detail extends Component {
   state = {
-    words:[]
+    words: [],
+    tags: [],
+    _id: this.props.match.params.id
   };
   // When this component mounts, grab the book with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
-    API.getWordBank(this.props.match.params.id)
+    API.getWordBank(this.state._id)
       .then(res =>{
        this.setState(res.data)
         console.log(res.data);
@@ -19,57 +22,71 @@ class Detail extends Component {
       .catch(err => console.log(err));
   }
 
+  renderDescription() {
+    if (this.state.description) {
+      return (
+        <span style={{fontSize: 16}}>
+          Description: {this.state.description}
+        </span>
+      )
+    }
+  }
+
   render() {
 
     return (
       <Container fluid>
+
         <Row>
           <Col size="md-12">
-            <Jumbotron>
+            <PageHeader>
               <h1>
                 Word Bank: {this.state.title}
               </h1>
-              <h1>
-                Tag: {this.state.tags}
-              </h1>
-              <h2>Description: {this.state.description} </h2>
+              <h2>
+                Tags: <small>{this.state.tags.join(", ")}</small>
+              </h2>
+              {this.renderDescription()}
               <h3>
                 Date created: {this.state.date}
-              </h3>              
-
-            </Jumbotron>
+              </h3>
+            </PageHeader>
           </Col>
         </Row>
+
+        <Row>
+          <Col size="md-12">
+            <span>Play a Game: </span>
+            <Link to={"/games/flashcards/" + this.state._id}>
+              <button class="btn btn-primary">Flash Cards</button>
+            </Link>
+          </Col>
+        </Row>
+
         <Row>
           <Col size="md-10 md-offset-1">
-            <article>
+            <article style={{marginBottom:16}}>
               <h3>
                 Words in bank:
-
-                  <div className="navigation">
-                    <ul>
-                      
-                        {this.state.words.map(word => {return (
-                          <li key={word._id}>
-                            {word.word} {word.definition}
-                          </li>
-                          )}
-                        )}
-   
-                      
-                    </ul>
-                  </div>
-                
               </h3>
 
-
-
+              <List>
+                  {this.state.words.map(word => {return (
+                    <ListItem key={word._id}>
+                      <h4>{word.word}</h4>
+                      <p>{word.definition}</p>
+                    </ListItem>
+                    )}
+                  )}
+              </List>
+                
             </article>
           </Col>
         </Row>
+
         <Row>
-          <Col size="md-2">
-            <Link to="/">← Back to Authors</Link>
+          <Col size="md-3">
+            <Link to="/">← Back to Word Banks</Link>
           </Col>
         </Row>
       </Container>

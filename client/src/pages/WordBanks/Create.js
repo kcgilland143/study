@@ -40,6 +40,16 @@ class WordBanks extends Component {
     });
   };
 
+  lookUpWord = () => {
+    API.dictionaryLookup(this.state.word)
+      .then(res => {
+        if (typeof res.data === 'string') {
+          this.setState({definition: res.data})
+        }
+      })
+      .catch(err => console.log(err))
+  }
+
   handleFormSubmit = event => {
     event.preventDefault();
     console.log('here')
@@ -61,6 +71,8 @@ class WordBanks extends Component {
   handleWordFormSubmit = event => {
     event.preventDefault();
     if (this.state.word && this.state.definition) {
+      const {word, definition} = this.state
+      this.setState({word: "", definition: ""})
       API.saveWord({
         word: this.state.word,
         definition: this.state.definition
@@ -69,8 +81,6 @@ class WordBanks extends Component {
         this.state.words.push(res.data)
         this.setState({
           words: this.state.words,
-          word: "",
-          definition: "",
         })
       })
       .catch(err => console.log(err));
@@ -130,12 +140,20 @@ class WordBanks extends Component {
             </List>
             <br />
             <form>
-              <Input
-                value={this.state.word}
-                onChange={this.handleInputChange}
-                name="word"
-                placeholder="Word (required)"
-              />
+              <div class="input-group" style={{marginBottom: 16}}>
+                <Input
+                  value={this.state.word}
+                  onChange={this.handleInputChange}
+                  name="word"
+                  placeholder="Word (required)"
+                />
+                <span class="input-group-btn">
+                  <button 
+                    class="btn btn-default" 
+                    type="button"
+                    onClick={this.lookUpWord}>Search</button>
+                </span>
+              </div>
               <Input
                 value={this.state.definition}
                 onChange={this.handleInputChange}

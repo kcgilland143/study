@@ -20,15 +20,14 @@ class WordBanks extends Component {
 
     spinning: false,
     saving: false,
-  };
-
+  }
 
   loadWordBank = () => {
     const loc = window.location.href.split('/')
     const path = loc.indexOf('create')
-    const bank = loc[path + 1]
-    if (bank) {
-      API.getWordBank(bank)
+    const bankId = loc[path + 1]
+    if (bankId) {
+      API.getWordBank(bankId)
         .then(bank => {
           bank.data.tags = bank.data.tags.join(" ")
           this.setState(bank.data)
@@ -37,13 +36,6 @@ class WordBanks extends Component {
         .catch(err => console.log(err))
     }
   }
-
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
 
   lookUpWord = () => {
     this.setState({spinning: true})
@@ -63,58 +55,83 @@ class WordBanks extends Component {
       })
   }
 
-  editWord = (id) => {
-    let words = this.state.words.filter((word) => !word._id === id)
-    let word = this.state.words.find((word) => word._id === id)
-    this.setState({
-      words: words,
-      word: word.word,
-      wordId: id,
-      definition: word.definition
-    })
-    console.log(id)
-  }
-
-  deleteWordFromBank = (id) => {
-    let words = this.state.words.filter((word) => word._id === id)
-    this.setState({words: words})
-  }
-
-  handleFormSubmit = event => {
-    event.preventDefault();
+  submitBank = () => {
     this.setState({saving: true})
     if (this.state.title && this.state.tags && (this.state.words.length > 0)) {
       API.saveWordBank({
+        id: this.state._id,
         title: this.state.title,
         tags: this.state.tags.split(),
         words: this.state.words.map(word => word._id),
         description: this.state.description
       })
       .then(res => {
-        this.props.history.push('/create/' + res.data._id)
+        if (!this.state._id) {
+          this.props.history.push('/create/' + res.data._id)
+        }
         this.setState({saving:false})
         this.loadWordBank()
       })
       .catch(err => console.log(err));
     }
+  }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+
+  addWord = () => {
+    const {wordId, word, definition} = this.state
+    this.setState({wordId: "", word: "", definition: ""})
+    return API.saveWord({
+      id: wordId,
+      word: word,
+      definition: definition
+    })
+    .then(res => {
+      console.log(res)
+      const words = [...this.state.words, res.data]
+      this.setState({
+        words: words,
+      }, () => {
+        if (this.state._id) { this.submitBank() }
+      })
+    })
+    .catch(err => console.log(err));
+  }
+
+  editWord = (id) => {
+    let word = this.state.words.find((word) => word._id === id)
+    let words = this.state.words.filter((word) => word._id !== id)
+    this.setState({
+      words: words,
+      word: word.word,
+      wordId: id,
+      definition: word.definition
+    })
+  }
+
+  deleteWordFromBank = (id) => {
+    let words = this.state.words.filter((word) => word._id !== id)
+    this.setState({words: words}, () => {
+      if (this.state._id) { this.submitBank() }
+    })
+  }
+
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.submitBank()
   };
 
   handleWordFormSubmit = event => {
     event.preventDefault();
     if (this.state.word && this.state.definition) {
-      const {word, definition} = this.state
-      this.setState({word: "", definition: ""})
-      API.saveWord({
-        word: word,
-        definition: definition
-      })
-      .then(res => {
-        this.state.words.push(res.data)
-        this.setState({
-          words: this.state.words,
-        })
-      })
-      .catch(err => console.log(err));
+      this.addWord()
     }
   };
 
@@ -161,28 +178,6 @@ class WordBanks extends Component {
           </Col>
           <Col size="md-8">
             <h3>Add Words!</h3>
-            <List>
-              {this.state.words.map(word => (
-                <ListItem key={word._id} className="clearfix">
-                  <strong>{word.word}: </strong>
-                  <span>{word.definition}</span>
-                  <button 
-                    className="btn btn-info pull-right" 
-                    style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}
-                    onClick={() => this.editWord(word._id)}>
-                    <span className="glyphicon glyphicon-pencil" />
-                  </button>
-                  <button 
-                    className="btn btn-primary pull-right" 
-                    onClick={() => this.deleteWordFromBank(word._id)}
-                    style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}>
-                      <span className="glyphicon glyphicon-trash" />
-                  </button>
-                </ListItem>
-                )
-              )}
-            </List>
-            <br />
             <form>
               <div className="input-group" style={{marginBottom: 16}}>
                 <Input
@@ -213,6 +208,29 @@ class WordBanks extends Component {
               Add Word
               </FormBtn>
             </form>
+            <List>
+              {this.state.words.map(word => (
+                <ListItem key={word._id} className="clearfix">
+                  <strong>{word.word}: </strong>
+                  <span>{word.definition}</span>
+                  <button 
+                    className="btn btn-info pull-right" 
+                    style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}
+                    onClick={() => this.editWord(word._id)}
+                    disabled={this.state.wordId}>
+                    <span className="glyphicon glyphicon-pencil" />
+                  </button>
+                  <button 
+                    className="btn btn-primary pull-right" 
+                    onClick={() => this.deleteWordFromBank(word._id)}
+                    style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}>
+                      <span className="glyphicon glyphicon-trash" />
+                  </button>
+                </ListItem>
+                )
+              )}
+            </List>
+            <br />
             {this.state.spinning ? <Spinner/> : ""}
           </Col>
         </Row>

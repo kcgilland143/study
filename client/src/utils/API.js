@@ -15,6 +15,9 @@ export default {
   },
   // Saves a book to the database
   saveWord: function(data) {
+    if (data.id) {
+      return axios.put("/api/words/" + data.id, data)
+    }
     return axios.post("/api/words", data);
   },
 
@@ -31,8 +34,12 @@ export default {
   },
   // Saves a book to the database
   saveWordBank: function(data) {
-    return axios.post("/api/wordbanks", data);
+    if (data.id) {
+      return axios.put("/api/wordbanks/" + data.id, data)
+    }
+    return axios.post("/api/wordbanks/", data);
   },
+  //lookup from oxford
   dictionaryLookup: function(word) {
     return axios.get("/api/words/search/" + encodeURIComponent(word))
   }

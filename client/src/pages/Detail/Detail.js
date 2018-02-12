@@ -63,6 +63,16 @@ class Detail extends Component {
           </Col>
         </Row>
 
+        <p></p>
+        <Row>
+          <Col size="md-12">
+            <span>Play a Game: </span>
+            <Link to={"/games/hangman/" + this.state._id}>
+              <button class="btn btn-primary">Hang Man</button>
+            </Link>
+          </Col>
+        </Row>        
+
         <Row>
           <Col size="md-10 md-offset-1">
             <article style={{marginBottom:16}}>

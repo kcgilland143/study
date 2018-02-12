@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
+import PageHeader from "../../components/PageHeader";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
@@ -10,10 +10,12 @@ import { Input, TextArea, FormBtn } from "../../components/Form";
 class WordBanks extends Component {
   state = {
     banks: [],
+    filtered: [],
     title: "",
     tags: "",
     description: "",
-    words: []
+
+    search: "",
   };
 
   componentDidMount() {
@@ -27,6 +29,21 @@ class WordBanks extends Component {
       )
       .catch(err => console.log(err));
   };
+
+  filteredItems = () => {
+    let {banks, search} = this.state
+    banks = banks.filter((bank) => {
+      if (!search) { return true}
+      if (bank.tags.some((tag) => tag.includes(search))) {
+        return true
+      }
+      if (bank.title.toLowerCase().includes(search)) {
+        return true
+      }
+      return false
+    })
+    return banks
+  }
 
   deleteBank = id => {
     API.deleteWordBank(id)
@@ -58,13 +75,25 @@ class WordBanks extends Component {
     return (
       <Container fluid>
         <Row>
+          <Col size="sm-6 md-4" offset="sm-6 md-8">
+            <input 
+              className="form-control"
+              type="text"
+              value={this.state.search}
+              onChange={this.handleInputChange}
+              name="search"
+              placeholder="Search Word Banks"
+            />
+          </Col>
+        </Row>
+        <Row>
           <Col size="md-12 sm-12">
-            <Jumbotron>
+            <PageHeader>
               <h1>Available Banks</h1>
-            </Jumbotron>
+            </PageHeader>
             {this.state.banks.length ? (
               <List>
-                {this.state.banks.map(bank => (
+                {this.filteredItems().map(bank => (
                   <ListItem key={bank._id}>
                     <Link to={"/banks/" + bank._id}>
                       <strong>

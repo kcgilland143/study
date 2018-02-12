@@ -10,3 +10,11 @@ export const List = ({ children }) => {
     </div>
   );
 };
+
+export const unwrappedList = ({ children }) => {
+  return (
+    <ul className="list-group">
+        {children}
+    </ul>
+  );
+}

@@ -13,6 +13,18 @@ export default {
     return res;
   },
   randomIndex: function randomIndex(len) {
-    return Math.floor(Math.random(len))
+    return Math.floor(Math.random() * len)
+  },
+  uniqueRandomIndexes: function uniqueRandomIndexes(len, amount) {
+    let list = []
+    let cur = 0
+    let tries = 0
+    while (list.length < amount && list.length < len && tries < 100) {
+      cur = this.randomIndex(len)
+      if (list.indexOf(cur) === -1) {
+        list.push(cur)
+      } else { tries++ }
+    }
+    return list
   }
 }

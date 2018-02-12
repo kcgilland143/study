@@ -5,6 +5,7 @@ import { Banks, Create } from "./pages/WordBanks"
 import Detail from "./pages/Detail";
 import { FlashCards, Trivia } from "./pages/Games"
 import NoMatch from "./pages/NoMatch";
+import Login from "./pages/LoginSignup"
 import Nav from "./components/Nav";
 
 const App = () =>
@@ -20,6 +21,7 @@ const App = () =>
         <Route exact path="/banks/:id" component={Detail} />
         <Route exact path="/games/flashcards/:id" component={FlashCards}/>
         <Route exact path="/games/trivia/:id" component={Trivia}/>
+        <Route exact path="/login" component={Login} />
         <Route component={NoMatch} />
       </Switch>
     </div>

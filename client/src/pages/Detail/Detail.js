@@ -59,6 +59,7 @@ class Detail extends Component {
             <span>Play a Game: </span>
             <Link to={"/games/flashcards/" + this.state._id}>
               <button className="btn btn-primary">Flash Cards</button>
+
             </Link>
             <Link to={"/games/trivia/" + this.state._id}>
               <button className="btn btn-primary">Trivia</button>
@@ -92,7 +93,7 @@ class Detail extends Component {
                     )}
                   )}
               </List>
-                
+
             </article>
           </Col>
         </Row>

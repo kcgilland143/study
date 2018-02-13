@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
+import PageHeader from "../../components/PageHeader";
+import Spinner from "../../components/Spinner"
 import API from "../../utils/API";
-import { browserHistory } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
@@ -12,24 +12,67 @@ class WordBanks extends Component {
     title: "",
     tags: "",
     description: "",
+    words: [],
+    
     word:"",
     definition:"",
-    words: []
-  };
+    wordId: "",
 
+    spinning: false,
+    saving: false,
+  }
 
   loadWordBank = () => {
     const loc = window.location.href.split('/')
     const path = loc.indexOf('create')
-    const bank = loc[path + 1]
-    if (bank) {
-      API.getWordBank(bank)
+    const bankId = loc[path + 1]
+    if (bankId) {
+      API.getWordBank(bankId)
         .then(bank => {
           bank.data.tags = bank.data.tags.join(" ")
           this.setState(bank.data)
           console.log(this.state)
         })
         .catch(err => console.log(err))
+    }
+  }
+
+  lookUpWord = () => {
+    this.setState({spinning: true})
+    let nextState = {
+      spinning: false
+    }
+    API.dictionaryLookup(this.state.word)
+      .then(res => {
+        if (typeof res.data === 'string') {
+          nextState.definition = res.data
+        }
+        this.setState(nextState)
+      })
+      .catch(err => {
+        console.log(err)
+        this.setState(nextState)
+      })
+  }
+
+  submitBank = () => {
+    this.setState({saving: true})
+    if (this.state.title && this.state.tags && (this.state.words.length > 0)) {
+      API.saveWordBank({
+        id: this.state._id,
+        title: this.state.title,
+        tags: this.state.tags.split(),
+        words: this.state.words.map(word => word._id),
+        description: this.state.description
+      })
+      .then(res => {
+        if (!this.state._id) {
+          this.props.history.push('/create/' + res.data._id)
+        }
+        this.setState({saving:false})
+        this.loadWordBank()
+      })
+      .catch(err => console.log(err));
     }
   }
 
@@ -40,50 +83,55 @@ class WordBanks extends Component {
     });
   };
 
-  lookUpWord = () => {
-    API.dictionaryLookup(this.state.word)
-      .then(res => {
-        if (typeof res.data === 'string') {
-          this.setState({definition: res.data})
-        }
+
+  addWord = () => {
+    const {wordId, word, definition} = this.state
+    this.setState({wordId: "", word: "", definition: ""})
+    return API.saveWord({
+      id: wordId,
+      word: word,
+      definition: definition
+    })
+    .then(res => {
+      console.log(res)
+      const words = [...this.state.words, res.data]
+      this.setState({
+        words: words,
+      }, () => {
+        if (this.state._id) { this.submitBank() }
       })
-      .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err));
   }
+
+  editWord = (id) => {
+    let word = this.state.words.find((word) => word._id === id)
+    let words = this.state.words.filter((word) => word._id !== id)
+    this.setState({
+      words: words,
+      word: word.word,
+      wordId: id,
+      definition: word.definition
+    })
+  }
+
+  deleteWordFromBank = (id) => {
+    let words = this.state.words.filter((word) => word._id !== id)
+    this.setState({words: words}, () => {
+      if (this.state._id) { this.submitBank() }
+    })
+  }
+
 
   handleFormSubmit = event => {
     event.preventDefault();
-    console.log('here')
-    if (this.state.title && this.state.tags && (this.state.words.length > 0)) {
-      API.saveWordBank({
-        title: this.state.title,
-        tags: this.state.tags.split(),
-        words: this.state.words.map(word => word._id),
-        description: this.state.description
-      })
-      .then(res => {
-        this.props.history.push('/create/' + res.data._id)
-        this.loadWordBank()
-      })
-      .catch(err => console.log(err));
-    }
+    this.submitBank()
   };
 
   handleWordFormSubmit = event => {
     event.preventDefault();
     if (this.state.word && this.state.definition) {
-      const {word, definition} = this.state
-      this.setState({word: "", definition: ""})
-      API.saveWord({
-        word: this.state.word,
-        definition: this.state.definition
-      })
-      .then(res => {
-        this.state.words.push(res.data)
-        this.setState({
-          words: this.state.words,
-        })
-      })
-      .catch(err => console.log(err));
+      this.addWord()
     }
   };
 
@@ -95,9 +143,9 @@ class WordBanks extends Component {
     return (
       <Container fluid>
         <Row>
-          <Jumbotron>
+          <PageHeader>
             <h1>Create a Word Bank!</h1>
-          </Jumbotron>
+          </PageHeader>
           <Col size="md-4">
             <form className="clearfix">
               <Input
@@ -126,19 +174,10 @@ class WordBanks extends Component {
                 Submit Bank
               </FormBtn>
             </form>
+            {this.state.saving ? <Spinner/> : ""}
           </Col>
           <Col size="md-8">
             <h3>Add Words!</h3>
-            <List>
-              {this.state.words.map(word => (
-                <ListItem key={word._id}>
-                  <strong>{word.word}: </strong>
-                  <span>{word.definition}</span>
-                </ListItem>
-                )
-              )}
-            </List>
-            <br />
             <form>
               <div className="input-group" style={{marginBottom: 16}}>
                 <Input
@@ -151,7 +190,9 @@ class WordBanks extends Component {
                   <button
                     className="btn btn-default" 
                     type="button"
-                    onClick={this.lookUpWord}>Search</button>
+                    onClick={this.lookUpWord}>
+                    Search
+                  </button>
                 </span>
               </div>
               <Input
@@ -167,6 +208,30 @@ class WordBanks extends Component {
               Add Word
               </FormBtn>
             </form>
+            <List>
+              {this.state.words.map(word => (
+                <ListItem key={word._id} className="clearfix">
+                  <strong>{word.word}: </strong>
+                  <span>{word.definition}</span>
+                  <button 
+                    className="btn btn-info pull-right" 
+                    style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}
+                    onClick={() => this.editWord(word._id)}
+                    disabled={this.state.wordId}>
+                    <span className="glyphicon glyphicon-pencil" />
+                  </button>
+                  <button 
+                    className="btn btn-primary pull-right" 
+                    onClick={() => this.deleteWordFromBank(word._id)}
+                    style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}>
+                      <span className="glyphicon glyphicon-trash" />
+                  </button>
+                </ListItem>
+                )
+              )}
+            </List>
+            <br />
+            {this.state.spinning ? <Spinner/> : ""}
           </Col>
         </Row>
       </Container>

@@ -59,9 +59,23 @@ class Detail extends Component {
             <span>Play a Game: </span>
             <Link to={"/games/flashcards/" + this.state._id}>
               <button className="btn btn-primary">Flash Cards</button>
+
+            </Link>
+            <Link to={"/games/trivia/" + this.state._id}>
+              <button className="btn btn-primary">Trivia</button>
             </Link>
           </Col>
         </Row>
+
+        <p></p>
+        <Row>
+          <Col size="md-12">
+            <span>Play a Game: </span>
+            <Link to={"/games/hangman/" + this.state._id}>
+              <button class="btn btn-primary">Hang Man</button>
+            </Link>
+          </Col>
+        </Row>        
 
         <Row>
           <Col size="md-10 md-offset-1">

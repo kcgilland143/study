@@ -15,12 +15,12 @@ module.exports = {
       .then(dbModel => {
         const bank = dbModel
         let words = bank.words.map((word) => db.Word.findOne({_id: word}))
-        return Promise.all([bank, ...words])
+        return Promise.all([...words, bank])
         // console.log(dbModel)
         // res.json(dbModel)
       })
       .then(bank => {
-        var wordBank = Object.assign({}, bank.shift()._doc)
+        var wordBank = Object.assign({}, bank.pop()._doc)
         
         // var wordBank = bank.shift()
         
@@ -46,7 +46,7 @@ module.exports = {
   },
   update: function(req, res) {
     db.WordBank
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

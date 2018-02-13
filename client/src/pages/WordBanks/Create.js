@@ -140,16 +140,16 @@ class WordBanks extends Component {
             </List>
             <br />
             <form>
-              <div class="input-group" style={{marginBottom: 16}}>
+              <div className="input-group" style={{marginBottom: 16}}>
                 <Input
                   value={this.state.word}
                   onChange={this.handleInputChange}
                   name="word"
                   placeholder="Word (required)"
                 />
-                <span class="input-group-btn">
-                  <button 
-                    class="btn btn-default" 
+                <span className="input-group-btn">
+                  <button
+                    className="btn btn-default" 
                     type="button"
                     onClick={this.lookUpWord}>Search</button>
                 </span>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DeleteBtn from "../../components/DeleteBtn";
-import Jumbotron from "../../components/Jumbotron";
+import PageHeader from "../../components/PageHeader";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
@@ -59,9 +59,9 @@ class WordBanks extends Component {
       <Container fluid>
         <Row>
           <Col size="md-12 sm-12">
-            <Jumbotron>
+            <PageHeader>
               <h1>Available Banks</h1>
-            </Jumbotron>
+            </PageHeader>
             {this.state.banks.length ? (
               <List>
                 {this.state.banks.map(bank => (
@@ -77,14 +77,14 @@ class WordBanks extends Component {
                     </small>
                     <div className="clearfix">
                       <Link to={"/create/" + bank._id}>
-                        <button 
-                          className="btn btn-info pull-right" 
+                        <button
+                          className="btn btn-info pull-right"
                           style={{marginRight:1+'em'}}>
                           <span className="glyphicon glyphicon-pencil" />
                         </button>
                       </Link>
-                      <button 
-                        className="btn btn-primary pull-right" 
+                      <button
+                        className="btn btn-primary pull-right"
                         onClick={() => this.deleteBank(bank._id)}
                         style={{marginRight:1+'em'}}>
                           <span className="glyphicon glyphicon-trash" />

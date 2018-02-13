@@ -8,8 +8,6 @@ import App from "./App";
 //import './index.css';
 //import 'bootstrap/dist/css/bootstrap.css'; // this messes up CSS
 
-
-
 //let store = createStore(hangmanApp, applyMiddleware(thunk))
 
 

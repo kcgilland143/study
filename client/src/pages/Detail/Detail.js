@@ -53,6 +53,7 @@ class Detail extends Component {
             </Link>
           </Col>
         </div>
+
         </Row>
 
         <Row>

@@ -39,8 +39,11 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
+    let data = req.body
+    console.log(req.user)
+    data.author = req.user.username
     db.WordBank
-      .create(req.body)
+      .create(data)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

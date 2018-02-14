@@ -1,16 +1,17 @@
 const router = require("express").Router();
 const wordCollectionController = require("../../controllers/wordCollectionController");
+const authMiddleware = require('../../Auth').authMiddleware
 
 // Matches with "/api/books"
 router.route("/")
   .get(wordCollectionController.findAll)
-  .post(wordCollectionController.create);
+  .post(authMiddleware, wordCollectionController.create);
 
 // Matches with "/api/books/:id"
 router
   .route("/:id")
   .get(wordCollectionController.findById)
-  .put(wordCollectionController.update)
-  .delete(wordCollectionController.remove);
+  .put(authMiddleware, wordCollectionController.update)
+  .delete(authMiddleware, wordCollectionController.remove);
 
 module.exports = router;

@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 
+import { Input, TextArea, FormBtn } from "../../components/Form";
+import Auth from "../../utils/Auth"
+
 class WordBanks extends Component {
   state = {
     banks: [],
@@ -12,12 +15,16 @@ class WordBanks extends Component {
     title: "",
     tags: "",
     description: "",
+    author: "",
 
     search: "",
+    isAuthenticated: false,
+    user: {_id:"", username:""}
   };
 
   componentDidMount() {
     this.loadWordBanks();
+    this.addUserToState();
   }
 
   loadWordBanks = () => {
@@ -48,6 +55,10 @@ class WordBanks extends Component {
       .then(res => this.loadWordBanks())
       .catch(err => console.log(err));
   };
+
+  addUserToState = () => {
+    this.setState({user: Auth.getToken()})
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -101,24 +112,30 @@ class WordBanks extends Component {
                       </strong>
                     </Link>
                     <br/>
-                    <small>
-                      {bank.tags}
-                    </small>
-                    <div className="clearfix">
-                      <Link to={"/create/" + bank._id}>
-                        <button
-                          className="btn btn-info pull-right"
+
+                    {Auth.isAuthenticated() && this.state.user.username === bank.author &&
+                      <div>
+                        <Link to={"/create/" + bank._id}>
+                          <button 
+                            className="btn btn-info pull-right" 
+                            style={{marginRight:1+'em'}}>
+                            <span className="glyphicon glyphicon-pencil" />
+                          </button>
+                        </Link>
+                        <button 
+                          className="btn btn-primary pull-right" 
+                          onClick={() => this.deleteBank(bank._id)}
                           style={{marginRight:1+'em'}}>
-                          <span className="glyphicon glyphicon-pencil" />
+                            <span className="glyphicon glyphicon-trash" />
                         </button>
-                      </Link>
-                      <button
-                        className="btn btn-primary pull-right"
-                        onClick={() => this.deleteBank(bank._id)}
-                        style={{marginRight:1+'em'}}>
-                          <span className="glyphicon glyphicon-trash" />
-                      </button>
-                    </div>
+                      </div>
+                    }
+                    <small>
+                      {bank.tags.join(", ")}
+                    </small>
+                    <p>
+                      by: {bank.author}
+                    </p>
                   </ListItem>
                 ))}
               </List>

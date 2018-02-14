@@ -48,8 +48,8 @@ class Detail extends Component {
               <Link to={"/games/trivia/" + this.state._id}>
                 <button className="btn my-primary">Trivia</button>
               </Link>
-            <Link to={"/games/hangman/" + this.state._id}>
-              <button className="btn my-primary">Hang Man</button>
+            <Link to={"/games/wordscramble/" + this.state._id}>
+              <button className="btn my-primary">Word Scramble</button>
             </Link>
           </Col>
         </div>

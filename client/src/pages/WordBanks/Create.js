@@ -6,6 +6,7 @@ import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
+import Auth from "../../utils/Auth"
 
 class WordBanks extends Component {
   state = {
@@ -66,13 +67,14 @@ class WordBanks extends Component {
         description: this.state.description
       })
       .then(res => {
+        console.log(res)
         if (!this.state._id) {
           this.props.history.push('/create/' + res.data._id)
         }
         this.setState({saving:false})
         this.loadWordBank()
       })
-      .catch(err => console.log(err));
+      .catch(err => this.setState({saving:false, err}));
     }
   }
 
@@ -93,7 +95,6 @@ class WordBanks extends Component {
       definition: definition
     })
     .then(res => {
-      console.log(res)
       const words = [...this.state.words, res.data]
       this.setState({
         words: words,
@@ -137,6 +138,7 @@ class WordBanks extends Component {
 
   componentDidMount() {
     this.loadWordBank()
+    this.setState({user:Auth.getToken()})
   }
 
   render() {

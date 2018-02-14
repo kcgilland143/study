@@ -58,24 +58,22 @@ class Detail extends Component {
           <Col size="md-12">
             <span>Play a Game: </span>
             <Link to={"/games/flashcards/" + this.state._id}>
-              <button className="btn btn-primary">Flash Cards</button>
-
+              <button 
+                className="btn btn-primary"
+                style={{marginRight: 1 + 'em'}}>Flash Cards</button>
             </Link>
             <Link to={"/games/trivia/" + this.state._id}>
-              <button className="btn btn-primary">Trivia</button>
+              <button 
+                className="btn btn-primary"
+                style={{marginRight:1+'em'}}>Trivia</button>
+            </Link>
+            <Link to={"/games/wordscramble/" + this.state._id}>
+              <button 
+                className="btn btn-primary"
+                style={{marginRight:1+'em'}}>Word Scramble</button>
             </Link>
           </Col>
         </Row>
-
-        <p></p>
-        <Row>
-          <Col size="md-12">
-            <span>Play a Game: </span>
-            <Link to={"/games/wordscramble/" + this.state._id}>
-              <button class="btn btn-primary">Word Scramble</button>
-            </Link>
-          </Col>
-        </Row>        
 
         <Row>
           <Col size="md-10 md-offset-1">

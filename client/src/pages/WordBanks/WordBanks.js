@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
 import PageHeader from "../../components/PageHeader";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
 
 class WordBanks extends Component {
   state = {
@@ -76,14 +74,16 @@ class WordBanks extends Component {
       <Container fluid>
         <Row>
           <Col size="sm-6 md-4" offset="sm-6 md-8">
-            <input 
-              className="form-control"
-              type="text"
-              value={this.state.search}
-              onChange={this.handleInputChange}
-              name="search"
-              placeholder="Search Word Banks"
-            />
+            <div className = 'word-bank-search'>
+              <input
+                className="form-control"
+                type="text"
+                value={this.state.search}
+                onChange={this.handleInputChange}
+                name="search"
+                placeholder="Search Word Banks"
+              />
+            </div>
           </Col>
         </Row>
         <Row>

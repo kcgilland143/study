@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
-import {ListItem, List} from "../../components/List"
 import PageHeader from "../../components/PageHeader";
 import API from "../../utils/API";
 import randomize from "../../utils/randomize"
@@ -9,7 +8,7 @@ import randomize from "../../utils/randomize"
 const button = {marginBottom:16}
 
 class FlashCards extends Component {
-  
+
   state = {
     unseen:[],
     seen:[],
@@ -61,14 +60,14 @@ class FlashCards extends Component {
     let current = state.current
     let seen = [...state.seen]
     let unseen = [...state.unseen]
-    
+
     seen.push(current)
-    
+
     if (unseen.length) {
       current = unseen.pop()
     }
-    
-    const nextState = { 
+
+    const nextState = {
       ...state,
       current: current,
       unseen: unseen,
@@ -88,53 +87,34 @@ class FlashCards extends Component {
     this.setState(nextState)
   }
 
-  renderDescription() {
-    if (this.state.description) {
-      return (
-        <span style={{fontSize: 16}}>
-          Description: {this.state.description}
-        </span>
-      )
-    }
-  }
-
   render() {
     return (
       <Container fluid>
         <Row>
           <Col size="md-12">
             <PageHeader>
-              <h1>
-                Flash Cards
-              </h1>
-              <h2 className="text-info">
-                Word Bank: <small>{this.state.title}</small>
-              </h2>
-              <h3>
-                Tag: <small>{this.state.tags.join(", ")}</small>
-              </h3>
-              {this.renderDescription()}
-              <span style={{fontSize: 16}}>
-                Date created: {this.state.date}
-              </span>              
-
+              <h1>Flash Cards</h1>
+              <h2>Word Bank: {this.state.title}</h2>
+              <h4>Tags:&nbsp;&nbsp;<small>{this.state.tags}</small></h4>
+              <h4>Date created:&nbsp;&nbsp;<small>{this.state.date}</small></h4>
+              <h3>Description:&nbsp;&nbsp;<small>{this.state.description}</small></h3>
             </PageHeader>
           </Col>
         </Row>
         <Row>
           <Col size="sm-10">
-            
+
             <div style={{marginBottom: 16}}>
-              <span className="text-success">
-                Seen:<span className="badge">{this.state.seen.length | ""}</span>
+              <span>
+                Seen:&nbsp;<span className="badge my-badge">{this.state.seen.length | ""}</span>
               </span>
-              <span className="text-info"  style={{marginLeft:12}}>
-                Unseen:<span className="badge">{this.state.unseen.length | ""}</span>
+              <span  style={{marginLeft:12}}>
+                Unseen:&nbsp;<span className="badge my-badge">{this.state.unseen.length | ""}</span>
               </span>
             </div>
-            
-            <div 
-              className="panel panel-default flashcard" 
+
+            <div
+              className="panel panel-default flashcard"
               style={{
                 paddingTop: 100,
                 paddingBottom: 100,
@@ -150,22 +130,24 @@ class FlashCards extends Component {
 
           </Col>
           <Col size="sm-2">
-            
+
 
             <div style={{padding: 8}}>
 
-              <button 
+              <button
                 className="btn btn-info"
                 style={button}
                 onClick={this.flip}>Flip
               </button>
-              <button 
+              &nbsp;
+              <button
                 className="btn btn-success"
                 style={button}
                 disabled={!this.state.flipped || this.state.unseen.length === 0}
                 onClick={this.next}>Next
               </button>
-              <button 
+              &nbsp;
+              <button
                 className="btn btn-danger"
                 style={button}
                 onClick={this.resetGame}>Restart

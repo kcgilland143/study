@@ -110,6 +110,7 @@ class WordBanks extends Component {
                       </strong>
                     </Link>
                     <br/>
+
                     {Auth.isAuthenticated() && this.state.user.username === bank.author &&
                       <div>
                         <Link to={"/create/" + bank._id}>

@@ -189,7 +189,7 @@ class WordBanks extends Component {
                   placeholder="Word (required)"
                 />
                 <span className="input-group-btn">
-                  <button 
+                  <button
                     className="btn btn-default" 
                     type="button"
                     onClick={this.lookUpWord}>

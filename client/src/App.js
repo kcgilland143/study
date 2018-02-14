@@ -4,11 +4,7 @@ import Home from "./pages/Home";
 //import Books from "./pages/Books";
 import { Banks, Create } from "./pages/WordBanks"
 import Detail from "./pages/Detail";
-<<<<<<< HEAD
 import { FlashCards, Trivia, Hangman, WordScramble } from "./pages/Games"
-=======
-import { FlashCards, Trivia, WordScramble } from "./pages/Games" 
->>>>>>> 8370bba36cd18f7b15c87932f5931c739cc243d0
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import styles from './app.css';
@@ -35,3 +31,5 @@ const App = () =>
   </Router>;
 
 export default App;
+
+

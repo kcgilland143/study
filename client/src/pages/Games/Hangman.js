@@ -8,7 +8,7 @@ import randomize from "../../utils/randomize"
 
 const button = {marginBottom:16}
 
-class Hangman extends Component {
+class WordScramble extends Component {
   
   state = {
     unseen:[],
@@ -98,6 +98,20 @@ class Hangman extends Component {
     }
   }
 
+
+  renderScramble() {
+    if (this.state.current.word) {
+    	//let newScramble = {this.state.current.word.split('').sort()};
+      return (
+        <span style={{fontSize: 16}}>
+          {/* Scramble: {newScramble}*/}
+			Split: {this.state.current.word.split('')}
+        </span>
+      )
+    }
+  }
+
+
   render() {
     return (
       <Container fluid>
@@ -105,7 +119,7 @@ class Hangman extends Component {
           <Col size="md-12">
             <PageHeader>
               <h1>
-                Flash Cards
+                Word Scramble
               </h1>
               <h2 className="text-info">
                 Word Bank: <small>{this.state.title}</small>
@@ -115,6 +129,7 @@ class Hangman extends Component {
               </h3>
               {this.renderDescription()}
               <span style={{fontSize: 16}}>
+              <p></p>
                 Date created: {this.state.date}
               </span>              
 
@@ -143,8 +158,9 @@ class Hangman extends Component {
               }}
             >
               { !this.state.side ?
-                <h1>{this.state.current.word}</h1> :
-                <p>{this.state.current.definition}</p>
+                
+                <h2>{this.state.current.word.split('').sort()}</h2> :
+                <p>{this.state.current.word}</p>
               }
             </div>
 
@@ -157,7 +173,7 @@ class Hangman extends Component {
               <button 
                 className="btn btn-info"
                 style={button}
-                onClick={this.flip}>Flip
+                onClick={this.flip}>Unscramble
               </button>
               <button 
                 className="btn btn-success"
@@ -184,4 +200,4 @@ class Hangman extends Component {
   }
 }
 
-export default Hangman;
+export default WordScramble;

@@ -6,7 +6,8 @@ const wordsSchema = new Schema({
   tags: { type: Array },
   description: String,
   words: [{ type: String }],
-  date: { type: Date, default: Date.now }
+  date: { type: Date, default: Date.now },
+  author: { type: String, required: true }
 });
 
 const WordBank = mongoose.model("WordBank", wordsSchema);

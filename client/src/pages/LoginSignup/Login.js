@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Col, Row, Container } from "../../components/Grid"
 import Auth from '../../utils/Auth'
 
+const btnStyle = {margin: 1 + 'em'}
+const inpStyle = {...btnStyle, marginTop: 0.5 + 'em'}
+
 class Login extends Component {
   constructor() {
     super()
@@ -15,9 +18,15 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    console.log('here', this.props)
+    const redirectTo = "/"
+    try {
+      const redirectTo = this.props.location.state.from.pathname
+    } catch(err) {}
     this.setState({
       isAuthenticated: Auth.isAuthenticated(),
-      user: Auth.getToken()
+      user: Auth.getToken(),
+      from: redirectTo
     })
   }
 
@@ -27,7 +36,9 @@ class Login extends Component {
   }
 
   Login = (event) => {
-    event.preventDefault()
+    if (event) {
+      event.preventDefault()
+    }
     const {username, password} = this.state
     Auth.login({username, password})
       .then((res) => {
@@ -42,32 +53,58 @@ class Login extends Component {
           ...res.data, 
           isAuthenticated:Auth.isAuthenticated(),
           user: Auth.getToken()
+        }, () => {
+          if (this.state.isAuthenticated) { 
+            this.props.history.push(this.state.from)
+          } else { this.props.history.push('/')}
         })
       })
+      .catch(err => console.log(err))
   }
+
+signUp = (event) => {
+  event.preventDefault()
+  const {username, password} = this.state
+  Auth.signUp({username, password})
+    .then((res) => {
+      console.log(res.data)
+      if (res.data !== 'idk bro') { this.Login() }
+    })
+}
 
   render (props) {
     return (
       <Container>
         <Row>
           <Col size="md-6" offset="md-3">
-          <form>
-            <input 
-              type="text" 
-              name="username"
-              onChange={this.handleFormInput} 
-              value={this.state.username}/>
-            <input 
-              type="password" 
-              name="password"
-              onChange={this.handleFormInput} 
-              value={this.state.password}/>
-            <button className="btn btn-primary" onClick={this.Login}>Login</button>
-          </form>
-            {Object.keys(this.state).map(key => {
-                return <div key={key}>{key}:{JSON.stringify(this.state[key])}</div>
-              })
-            }
+            <form>
+              <label for="username">Username: </label>
+              <br />
+              <input 
+                type="text" 
+                name="username"
+                onChange={this.handleFormInput} 
+                value={this.state.username}
+                style={inpStyle}/>
+              <br />
+              <label for="Password">Password: </label>
+              <br/>
+              <input 
+                type="password" 
+                name="password"
+                onChange={this.handleFormInput} 
+                value={this.state.password}
+                style={inpStyle}/>
+              <br />
+              <button 
+                className="btn btn-primary" 
+                onClick={this.Login}
+                style={btnStyle}>Login</button>
+              <button 
+                className="btn btn-info" 
+                onClick={this.signUp}
+                style={btnStyle}>Signup</button>
+            </form>
           </Col>
         </Row>
       </Container>

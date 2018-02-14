@@ -1,1 +1,2 @@
-export {default as User} from './Users.js'
+module.exports.User = require("./Users.js")
+module.exports.authMiddleware = require("./authMiddleware")

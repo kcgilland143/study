@@ -1,11 +1,12 @@
 const db = require("../models");
 
-const User = {
+
+module.exports = {
   findById: function(data, cb) {
     db.User
-      .findById(data._id)
+      .findById(data.id)
       .then(dbModel => cb(null, dbModel))
-      .catch(err => cb(err));
+      .catch(err => cb(err);
   },
   findByUsername: function(data, cb) {
     db.User
@@ -20,5 +21,3 @@ const User = {
       .catch(err => cb(err));
   }
 };
-
-module.exports = User

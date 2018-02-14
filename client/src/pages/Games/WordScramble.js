@@ -160,7 +160,7 @@ class WordScramble extends Component {
               { !this.state.side ?
                 
                 <h2>{this.state.current.word.split('').sort()}</h2> :
-                <p>{this.state.current.word}</p>
+                <h3>{this.state.current.word}</h3>
               }
             </div>
 
@@ -199,5 +199,6 @@ class WordScramble extends Component {
     );
   }
 }
+
 
 export default WordScramble;

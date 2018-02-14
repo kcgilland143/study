@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 //import Books from "./pages/Books";
 import { Banks, Create } from "./pages/WordBanks"
 import Detail from "./pages/Detail";
-import { FlashCards, Trivia, Hangman } from "./pages/Games"
+import { FlashCards, Trivia, Hangman, WordScramble } from "./pages/Games"
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import styles from './app.css';
@@ -23,6 +23,7 @@ const App = () =>
         <Route exact path="/banks/:id" component={Detail} />
         <Route exact path="/games/flashcards/:id" component={FlashCards}/>
         <Route exact path="/games/hangman/:id" component={Hangman}/>
+        <Route exact path="/games/wordscramble/:id" component={WordScramble}/>
         <Route exact path="/games/trivia/:id" component={Trivia}/>
         <Route component={NoMatch} />
       </Switch>

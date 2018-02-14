@@ -99,16 +99,20 @@ class WordScramble extends Component {
   }
 
 
-  renderScramble() {
-    if (this.state.current.word) {
-    	//let newScramble = {this.state.current.word.split('').sort()};
-      return (
-        <span style={{fontSize: 16}}>
-          {/* Scramble: {newScramble}*/}
-			Split: {this.state.current.word.split('')}
-        </span>
-      )
+  scrambleFunction(word) {
+    	let newScramble = word.split('');
+      
+    var j, x, i;
+    for (i = newScramble.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = newScramble[i];
+        newScramble[i] = newScramble[j];
+        newScramble[j] = x;
     }
+
+
+      return newScramble.join("");
+    
   }
 
 
@@ -159,8 +163,8 @@ class WordScramble extends Component {
             >
               { !this.state.side ?
                 
-                <h2>{this.state.current.word.split('').sort()}</h2> :
-                <p>{this.state.current.word}</p>
+                <h2>{this.scrambleFunction(this.state.current.word)}</h2> :
+                <h3>{this.state.current.word}</h3>
               }
             </div>
 
@@ -199,5 +203,6 @@ class WordScramble extends Component {
     );
   }
 }
+
 
 export default WordScramble;

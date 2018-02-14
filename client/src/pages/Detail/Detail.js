@@ -71,8 +71,8 @@ class Detail extends Component {
         <Row>
           <Col size="md-12">
             <span>Play a Game: </span>
-            <Link to={"/games/hangman/" + this.state._id}>
-              <button class="btn btn-primary">Hang Man</button>
+            <Link to={"/games/wordscramble/" + this.state._id}>
+              <button class="btn btn-primary">Word Scramble</button>
             </Link>
           </Col>
         </Row>        

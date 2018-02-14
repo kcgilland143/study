@@ -1,7 +1,7 @@
 import React from "react";
 
 const PageHeader = ({ children }) =>
-  <div className="page-header clearfix">
+  <div className="page-header">
     {children}
   </div>;
 

@@ -7,7 +7,7 @@ import API from "../../utils/API";
 import randomize from "../../utils/randomize"
 
 class Trivia extends Component {
-  
+
   state = {
     playing: false,
 
@@ -79,15 +79,15 @@ class Trivia extends Component {
     let current = state.current
     let seen = [...state.seen]
     let unseen = [...state.unseen]
-    
-    
+
+
     if (unseen.length) {
       seen.push(current)
       current = unseen.pop()
 
       let {options, answer} = this.getOptions(current)
-      
-      const nextState = { 
+
+      const nextState = {
         ...state,
         current: current,
         unseen: unseen,
@@ -130,9 +130,9 @@ class Trivia extends Component {
   checkAnswer = () => {
     let nextState = {...this.state}
     const {selected, answer} = this.state
-    if (selected === answer) { 
+    if (selected === answer) {
       nextState.currentCorrect = 1
-      nextState.correct++ 
+      nextState.correct++
     } else {
       nextState.currentCorrect = -1
       nextState.incorrect++
@@ -153,15 +153,7 @@ class Trivia extends Component {
     } else return ""
   }
 
-  renderDescription() {
-    if (this.state.description) {
-      return (
-        <span style={{fontSize: 16}}>
-          Description: {this.state.description}
-        </span>
-      )
-    }
-  }
+
 
   render() {
     return (
@@ -169,40 +161,31 @@ class Trivia extends Component {
         <Row>
           <Col size="md-12">
             <PageHeader>
-              <h1>
-                Flash Cards
-              </h1>
-              <h2 className="text-info">
-                Word Bank: <small>{this.state.title}</small>
-              </h2>
-              <h3>
-                Tag: <small>{this.state.tags.join(", ")}</small>
-              </h3>
-              {this.renderDescription()}
-              <span style={{fontSize: 16}}>
-                Date created: {this.state.date}
-              </span>              
-
+              <h1>Trivia</h1>
+              <h2>Word Bank: {this.state.title}</h2>
+              <h4>Tags:&nbsp;&nbsp;<small>{this.state.tags}</small></h4>
+              <h4>Date created:&nbsp;&nbsp;<small>{this.state.date}</small></h4>
+              <h3>Description:&nbsp;&nbsp;<small>{this.state.description}</small></h3>
             </PageHeader>
           </Col>
         </Row>
         <Row>
           <Col size="sm-10">
-            
+
             <div style={{marginBottom: 16}}>
-              <span className="text-info">
-                Answered:<span className="badge">{this.state.answered}</span>
+              <span>
+                Answered:&nbsp;<span className="badge my-badge">{this.state.answered}</span>
               </span>
-              <span className="text-info"  style={{marginLeft:12}}>
-                Correct:<span className="badge">{this.state.correct}</span>
+              <span style={{marginLeft:12}}>
+                Correct:&nbsp;<span className="badge my-badge">{this.state.correct}</span>
               </span>
-              <span className="text-info"  style={{marginLeft:12}}>
-                incorrect:<span className="badge">{this.state.incorrect}</span>
+              <span style={{marginLeft:12}}>
+                Incorrect:&nbsp;<span className="badge my-badge">{this.state.incorrect}</span>
               </span>
             </div>
 
-              <div 
-                className="panel panel-default trivia-container" 
+              <div
+                className="panel panel-default trivia-container"
                 style={{
                   paddingTop: 16,
                   paddingBottom: 16,
@@ -213,19 +196,19 @@ class Trivia extends Component {
                   <h3>{this.state.current.definition}</h3>,
                   <div className="trivia-options" style={{minHeight:200, maxHeight:400}}>
                     <List>
-                    {this.state.options.map((opt, i) => 
+                    {this.state.options.map((opt, i) =>
                       <div key={i}
                         onClick={() => this.select(i)}>
                         <ListItem className={this.selectSuccessFail(i)}>
                           {opt.word}
-                        </ListItem> 
+                        </ListItem>
                       </div>
                     )}
                     </List>
                   </div>
               ]:
-                <button 
-                  className="btn btn-primary"
+                <button
+                  className="btn my-primary"
                   onClick={this.startGame}>Start</button>
               }
               </div>

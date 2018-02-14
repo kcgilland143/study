@@ -14,7 +14,7 @@ class WordBanks extends Component {
     tags: "",
     description: "",
     words: [],
-    
+
     word:"",
     definition:"",
     wordId: "",
@@ -146,7 +146,7 @@ class WordBanks extends Component {
       <Container fluid>
         <Row>
           <PageHeader>
-            <h1>Create a Word Bank!</h1>
+            <h1>Create a Word Bank</h1>
           </PageHeader>
           <Col size="md-4">
             <form className="clearfix">
@@ -190,7 +190,7 @@ class WordBanks extends Component {
                 />
                 <span className="input-group-btn">
                   <button
-                    className="btn btn-default" 
+                    className="btn my-primary"
                     type="button"
                     onClick={this.lookUpWord}>
                     Search
@@ -215,15 +215,15 @@ class WordBanks extends Component {
                 <ListItem key={word._id} className="clearfix">
                   <strong>{word.word}: </strong>
                   <span>{word.definition}</span>
-                  <button 
-                    className="btn btn-info pull-right" 
+                  <button
+                    className="btn btn-info pull-right"
                     style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}
                     onClick={() => this.editWord(word._id)}
                     disabled={this.state.wordId}>
                     <span className="glyphicon glyphicon-pencil" />
                   </button>
-                  <button 
-                    className="btn btn-primary pull-right" 
+                  <button
+                    className="btn btn-primary pull-right"
                     onClick={() => this.deleteWordFromBank(word._id)}
                     style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}>
                       <span className="glyphicon glyphicon-trash" />

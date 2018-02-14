@@ -22,65 +22,44 @@ class Detail extends Component {
       .catch(err => console.log(err));
   }
 
-  renderDescription() {
-    if (this.state.description) {
-      return (
-        <span style={{fontSize: 16}}>
-          Description: {this.state.description}
-        </span>
-      )
-    }
-  }
-
   render() {
 
     return (
       <Container fluid>
-
         <Row>
           <Col size="md-12">
             <PageHeader>
-              <h1>
-                Word Bank: {this.state.title}
-              </h1>
-              <h2>
-                Tags: <small>{this.state.tags.join(", ")}</small>
-              </h2>
-              {this.renderDescription()}
-              <h3>
-                Date created: {this.state.date}
-              </h3>
+              <h1>Word Bank: {this.state.title}</h1>
+              <h4>Tags:&nbsp;&nbsp;<small>{this.state.tags}</small></h4>
+              <h4>Date created:&nbsp;&nbsp;<small>{this.state.date}</small></h4>
+              <h3>Description:&nbsp;&nbsp;<small>{this.state.description}</small></h3>
             </PageHeader>
           </Col>
         </Row>
-
         <Row>
-          <Col size="md-12">
-            <span>Play a Game: </span>
-            <Link to={"/games/flashcards/" + this.state._id}>
-              <button 
-                className="btn btn-primary"
-                style={{marginRight: 1 + 'em'}}>Flash Cards</button>
-            </Link>
-            <Link to={"/games/trivia/" + this.state._id}>
-              <button 
-                className="btn btn-primary"
-                style={{marginRight:1+'em'}}>Trivia</button>
-            </Link>
+          <div className = 'detail-game-row'>
+          <Col size='sm-2'>
+            <h3>Play a Game:</h3>
+          </Col>
+          <Col size='sm-10'>
+              <Link to={"/games/flashcards/" + this.state._id}>
+                <button className="btn my-primary">Flash Cards</button>
+              </Link>
+              <Link to={"/games/trivia/" + this.state._id}>
+                <button className="btn my-primary">Trivia</button>
+              </Link>
             <Link to={"/games/wordscramble/" + this.state._id}>
-              <button 
-                className="btn btn-primary"
-                style={{marginRight:1+'em'}}>Word Scramble</button>
+              <button className="btn my-primary">Word Scramble</button>
             </Link>
           </Col>
+        </div>
+
         </Row>
 
         <Row>
           <Col size="md-10 md-offset-1">
-            <article style={{marginBottom:16}}>
-              <h3>
-                Words in bank:
-              </h3>
+            <article>
+              <h3>Words in bank:</h3>
 
               <List>
                   {this.state.words.map(word => {return (

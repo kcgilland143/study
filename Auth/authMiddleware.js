@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken')
 const Users = require('./Users.js')
 
-const secret = process.env.jwtSecret || "Ultra Secure"
-
 const authMiddleware = function (req, res, next) {
   const authorization = req.headers.authorization
+  const secret = process.env.jwtSecret || "Ultra Secure"
   if (!authorization) { res.status(401).send('not authorized')}
 
   jwt.verify(authorization, secret, 

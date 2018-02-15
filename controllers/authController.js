@@ -2,11 +2,11 @@ const Users = require("../Auth/Users");
 const Hash = require("../Auth/hashing")
 const jwt = require("jsonwebtoken")
 
-const secret = process.env.jwtSecret || "Ultra secure"
 // Defining methods for the booksController
 module.exports = {
   login: function (req, res) {
     let {username, password} = req.body
+    const secret = process.env.jwtSecret || "Ultra secure"
     if (usernameAndPassword(username, password)) {
       Users.findByUsername({username}, (err, data) => {
         if (err) return res.status(401).send("invalid username or password")

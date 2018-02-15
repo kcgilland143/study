@@ -2,7 +2,7 @@ const Users = require("../Auth/Users");
 const Hash = require("../Auth/hashing")
 const jwt = require("jsonwebtoken")
 
-const secret = "Ultra secure"
+const secret = process.env.jwtSecret || "Ultra secure"
 // Defining methods for the booksController
 module.exports = {
   login: function (req, res) {

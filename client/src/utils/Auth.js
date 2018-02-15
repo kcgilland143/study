@@ -11,10 +11,10 @@ const Auth = {
   getToken() {
     const token = localStorage.getItem('token')
     if (token) {
-      axios.defaults.headers.common['Authorization'] = token
+      axios.defaults.headers.common['authorization'] = token
       return decode(token)
     } else {
-      axios.defaults.headers.common['Authorization'] = ""
+      axios.defaults.headers.common['authorization'] = ""
       return ""
     }
   },

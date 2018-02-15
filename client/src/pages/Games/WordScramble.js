@@ -125,18 +125,12 @@ class WordScramble extends Component {
               <h1>
                 Word Scramble
               </h1>
-              <h2 className="text-info">
-                Word Bank: <small>{this.state.title}</small>
-              </h2>
-              <h3>
-                Tag: <small>{this.state.tags.join(", ")}</small>
-              </h3>
-              {this.renderDescription()}
-              <span style={{fontSize: 16}}>
-              <p></p>
-                Date created: {this.state.date}
-              </span>              
-
+              <h2>Word Bank: {this.state.title}</h2>
+              <h4>Tags:&nbsp;&nbsp;<small>{this.state.tags}</small></h4>
+              <h4>Date created:&nbsp;&nbsp;<small>{this.state.date}</small></h4>
+              {this.state.description &&
+                <h3>Description:&nbsp;&nbsp;<small>{this.state.description}</small></h3>
+              }
             </PageHeader>
           </Col>
         </Row>

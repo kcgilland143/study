@@ -165,7 +165,9 @@ class Trivia extends Component {
               <h2>Word Bank: {this.state.title}</h2>
               <h4>Tags:&nbsp;&nbsp;<small>{this.state.tags}</small></h4>
               <h4>Date created:&nbsp;&nbsp;<small>{this.state.date}</small></h4>
-              <h3>Description:&nbsp;&nbsp;<small>{this.state.description}</small></h3>
+              {this.state.description &&
+                <h3>Description:&nbsp;&nbsp;<small>{this.state.description}</small></h3>
+              }
             </PageHeader>
           </Col>
         </Row>

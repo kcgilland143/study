@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Row, Container } from "../../components/Grid"
+import PageHeader from "../../components/PageHeader";
+
 import Auth from '../../utils/Auth'
 
 const btnStyle = {margin: 1 + 'em'}
@@ -75,8 +77,11 @@ signUp = (event) => {
   render (props) {
     return (
       <Container>
+        <PageHeader>
+          <h1>Log in or Sign up</h1>
+        </PageHeader>
         <Row>
-          <Col size="md-6" offset="md-3">
+          <Col size="md-4" offset="md-4">
             <form>
               <label for="username">Username: </label>
               <br />
@@ -97,11 +102,11 @@ signUp = (event) => {
                 style={inpStyle}/>
               <br />
               <button 
-                className="btn btn-primary" 
+                className="btn my-primary" 
                 onClick={this.Login}
                 style={btnStyle}>Login</button>
               <button 
-                className="btn btn-info" 
+                className="btn my-secondary" 
                 onClick={this.signUp}
                 style={btnStyle}>Signup</button>
             </form>

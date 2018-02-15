@@ -17,6 +17,14 @@ a {
 a:focus, a:hover {
   color: #444F45;
 }
+
+.my-secondary {
+  color: linen;
+  background-color: #444F45;
+}
+.my-secondary:focus, .my-secondary:hover {
+  background-color: #94b777;
+}
 .my-primary {
   color: linen;
   background-color: #94b777;

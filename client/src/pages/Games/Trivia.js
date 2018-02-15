@@ -57,7 +57,7 @@ class Trivia extends Component {
     const words = nextState.words
 
     nextState.unseen = randomize.shuffle(words)
-    nextState.current = nextState.unseen.pop()
+    nextState.current = {}
     nextState.seen = []
 
     nextState.answer = -1

@@ -216,14 +216,14 @@ class WordBanks extends Component {
                   <strong>{word.word}: </strong>
                   <span>{word.definition}</span>
                   <button
-                    className="btn btn-info pull-right"
+                    className="btn my-secondary pull-right"
                     style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}
                     onClick={() => this.editWord(word._id)}
                     disabled={this.state.wordId}>
                     <span className="glyphicon glyphicon-pencil" />
                   </button>
                   <button
-                    className="btn btn-primary pull-right"
+                    className="btn my-primary pull-right"
                     onClick={() => this.deleteWordFromBank(word._id)}
                     style={{marginRight:1+'em', marginTop: 0.5+"em", marginBottom: 0.5+"em"}}>
                       <span className="glyphicon glyphicon-trash" />

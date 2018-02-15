@@ -10,7 +10,7 @@ const Home = () =>
       <h1>LetzQuiz</h1>
     </Jumbotron>
     <Row>
-      <Col size = 'sm-5' offset = 'sm-1'>
+      <Col size = 'sm-5 xs-6' offset = 'sm-1'>
         <Link to = '/create' className = 'home-links-item'>
           <div className = 'home-links-item'>
             <h3>Create</h3>
@@ -18,7 +18,7 @@ const Home = () =>
           </div>
         </Link>
       </Col>
-      <Col size= 'sm-5'>
+      <Col size= 'sm-5 xs-6'>
         <Link to = '/banks' className = 'home-links-item'>
           <div className = 'home-links-item'>
             <h3>Banks</h3>

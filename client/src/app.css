@@ -18,6 +18,7 @@ a:focus, a:hover {
   color: #444F45;
 }
 
+
 .my-secondary {
   color: linen;
   background-color: #444F45;
@@ -70,6 +71,15 @@ a:focus, a:hover {
   height: 60px;
   margin: 5px;
   border-radius: 10px;
+}
+.navbar-inverse .navbar-toggle {
+  border-color: #444F45; 
+}
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: #444F45;
+}
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: #444F45;
 }
 
 /* style the home page */

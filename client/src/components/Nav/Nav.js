@@ -6,7 +6,11 @@ const Nav = (props) =>
   <nav className = "navbar navbar-inverse navbar-top">
     <div className = "container-fluid">
       <div className = "navbar-header">
-        <button type = "button" className="collapsed navbar-toggle">
+        <button 
+          type = "button" 
+          className="collapsed navbar-toggle"
+          data-toggle="collapse"
+          data-target="#nav-collapsed">
           <span className = "sr-only">Toggle navigation</span>
           <span className = "icon-bar" /> <span className="icon-bar" />
           <span className = "icon-bar" />
@@ -15,14 +19,15 @@ const Nav = (props) =>
           lq
         </a>
       </div>
-
-      <ul className="nav navbar-nav navbar-right">
-        {Auth.isAuthenticated() ?
-          <li><Link to='/logout'>Logout</Link></li> :
-          <li><Link to='/login'>Login</Link></li>
-        }
-        {props.children}
-      </ul>
+      <div className="collapse navbar-collapse" id="nav-collapsed">
+        <ul className="nav navbar-nav navbar-right">
+          {Auth.isAuthenticated() ?
+            <li><Link to='/logout'>Logout</Link></li> :
+            <li><Link to='/login'>Login</Link></li>
+          }
+          {props.children}
+        </ul>
+      </div>
     </div>
   </nav>;
 

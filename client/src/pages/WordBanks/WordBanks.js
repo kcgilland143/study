@@ -117,13 +117,13 @@ class WordBanks extends Component {
                       <div>
                         <Link to={"/create/" + bank._id}>
                           <button 
-                            className="btn btn-info pull-right" 
+                            className="btn my-secondary pull-right" 
                             style={{marginRight:1+'em'}}>
                             <span className="glyphicon glyphicon-pencil" />
                           </button>
                         </Link>
                         <button 
-                          className="btn btn-primary pull-right" 
+                          className="btn my-primary pull-right" 
                           onClick={() => this.deleteBank(bank._id)}
                           style={{marginRight:1+'em'}}>
                             <span className="glyphicon glyphicon-trash" />
